@@ -2,8 +2,11 @@
 #include <stdio.h>
 
 int main()
-{
-    printf("---------\n|       |\n|5X5=25 |\n|       |\n---------");
+{   int a ;
+    printf("enter number:-");
+    scanf("%d",&a);
+    int b = a*a;
+    printf("---------\n|       |\n|%dX%d=%d |\n|       |\n---------",a,a,b);
 
     return 0;
 }
