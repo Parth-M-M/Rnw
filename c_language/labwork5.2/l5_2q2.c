@@ -1,11 +1,3 @@
-/******************************************************************************
-
-                            Online C Compiler.
-                Code, Compile, Run and Debug C program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
-
 #include <stdio.h>
 
 int main()
@@ -91,7 +83,17 @@ int main()
             }
             
         }
-       
+       else 
+       {
+           if (c>d)
+           {
+             printf("%d is the maximum number",c);  
+           }
+           else 
+           {
+               printf("%d is the maximum number",d);
+           } 
+       }
     }
     else
     {
@@ -124,3 +126,4 @@ int main()
     }
     return 0;
 }
+
