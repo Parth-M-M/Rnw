@@ -33,7 +33,7 @@ int main()
                      break;
                      default:
                      printf("Invalid Number");
-                     ;
+                     break;
                      
                  }
     break;
@@ -58,7 +58,7 @@ int main()
                      break;
                      default:
                      printf("Invalid Number");
-                     ;
+                     break;
                      
                  }
     break;
@@ -82,7 +82,7 @@ int main()
                      break;
                      default:
                      printf("Invalid Number");
-                     ;
+                     break;
                      
                  }
     break;
