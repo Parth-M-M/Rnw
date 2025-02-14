@@ -47,7 +47,6 @@ int main() {
 
 ----------------------------------------------------------------------------------
 
-
 #include <stdio.h>
 
 int main() 
@@ -59,7 +58,13 @@ int main()
         
         scanf("%d",&num);
         
-        lastdigit = num %10 ; // Extract the last digit of the intiger
+       if (num > 0 && num < 10)
+       {
+           printf("%d",num);
+       }
+       else
+       {
+            lastdigit = num %10 ; // Extract the last digit of the intiger
         
         while (num>=10)
         {
@@ -72,6 +77,7 @@ int main()
         sum = firstdigit+lastdigit; // adding first and last digit 
         
         printf("%d",sum);
+       }
         
         
     return 0;
