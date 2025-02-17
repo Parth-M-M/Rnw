@@ -10,8 +10,14 @@ int main()
       for (j = 1; j <= 5; j++)
       {
        if(j <=6-i)
-      	// printf("*");
-        printf("%d ", i );
+      	 if (j % 2 == 0)
+      	 {
+                printf("0");
+      	 }
+      	 else
+      	 {
+      	        printf("1");
+      	 }
        else
        	printf(" ");
        

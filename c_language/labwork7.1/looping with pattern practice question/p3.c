@@ -9,8 +9,8 @@ int main()
     // Inner loop
       for (j = 1; j <= 5; j++)
       {
-       if(j <=6-i)
-      	// printf("*");
+       if(j <=i)
+      
         printf("%d ", i );
        else
        	printf(" ");
