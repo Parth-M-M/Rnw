@@ -17,11 +17,10 @@ int main() {
     }
      for(int i=0;i<row;i++)
     {
-        printf("%d ", a[i][row - i - 1]);
-         int temp = a[i][row - i - 1]
+         int temp = a[i][row - i - 1];
          sum +=temp;
     }
-    printf
+    printf("%d",sum);
     
     return 0;
 }
