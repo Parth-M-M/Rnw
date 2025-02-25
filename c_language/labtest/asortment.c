@@ -58,6 +58,7 @@ int main() {
            else
            {
                z=x;
+               y=z;
            }
         }   
     }
