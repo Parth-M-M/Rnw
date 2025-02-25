@@ -120,3 +120,89 @@ int main() {
     return 0;
 }
 
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+
+#include <stdio.h>
+
+int main() {
+    int r, c, sum = 0;
+    printf("Enter number of rows: ");
+    scanf("%d", &r);
+    printf("Enter number of columns: ");
+    scanf("%d", &c);
+    int a[r][c];
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            printf("a[%d][%d]: ", i, j);
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    int choice;
+    printf("Enter 1 for row sum, 0 for column sum: ");
+    scanf("%d", &choice);
+    if (choice == 1)
+    {
+        int rtemp;
+        printf("Enter row number: ");
+        scanf("%d", &rtemp);
+        if (rtemp >= 0 && rtemp < r) 
+        {
+            printf("Elements in row %d: ", rtemp);
+            for (int j = 0; j < c; j++) 
+            {
+                printf("%d, ", a[rtemp][j]);
+                sum += a[rtemp][j];
+            }
+            printf("\nSum of row %d is: %d\n", rtemp, sum);
+        } 
+        else 
+        {
+            printf("Invalid row number\n");
+        }
+    } 
+    else if (choice == 0)
+    { 
+        int ctemp;
+        printf("Enter column number: ");
+        scanf("%d", &ctemp);
+        if (ctemp >= 0 && ctemp < c) 
+        {
+            printf("Elements in column %d: ", ctemp);
+            for (int i = 0; i < r; i++) 
+            {
+                printf("%d, ", a[i][ctemp]);
+                sum += a[i][ctemp];
+            }
+            printf("\nSum of column %d is: %d\n", ctemp, sum);
+        } 
+        else 
+        {
+            printf("Invalid column number\n");
+        }
+    } 
+    else 
+    {
+        printf("Invalid choice\n");
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+-----------------------------------------------------------------------------------
