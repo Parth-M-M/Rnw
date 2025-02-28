@@ -46,3 +46,71 @@ int main() {
     }
     return 0;
 }
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    int cnt = 0;
+    printf("Enter your string : ");
+    scanf("%99s", str); 
+    for (int i = 0; i < 100; i++) 
+    {
+        if (str[i] == '\0')
+        {
+        break;
+        }
+        int cvt = str[i];
+        if ((cvt >= 65 && cvt <= 90) || (cvt >= 97 && cvt <= 122))
+        { 
+            cnt++;
+        }
+        else 
+        {
+            break;
+        }
+    }
+
+    
+    for (int i = 0; i < cnt; i++) 
+    {
+        int ccnt = 0;
+        char tempc = str[i];
+
+    
+        int alreadyCounted = 0;
+        for (int k = 0; k < i; k++)
+        {
+            if (str[k] == tempc) 
+            {
+                alreadyCounted = 1;
+                break;
+            }
+        }
+        if (alreadyCounted)
+        {
+        continue;
+        }
+        for (int j = 0; j < cnt; j++)
+        {
+            if (str[j] == tempc) 
+            {
+                ccnt++;
+            }
+        }
+        printf("%c => %d\n", tempc, ccnt);
+    }
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------
