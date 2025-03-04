@@ -1,13 +1,13 @@
 #include <stdio.h>
- void square()
+ void cube()
 {   int a;
     printf("Enter number : ");
     scanf("%d",&a);
-    printf("Square of %d is %d",a,a*a);
+    printf("Square of %d is %d",a,a*a*a);
 
 }
 int main() {
-    square();
+    cube();
     
     return 0;
 }
