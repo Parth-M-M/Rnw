@@ -50,11 +50,14 @@ int main() {
 
 
 #include <stdio.h>
+#include <stdlib.h>
 
-void arsize(int a)
+void arsize(int *size_ptr) 
 {
-    int ar[a][a];    
-    int cube[a][a]; 
+    int a = *size_ptr; 
+    
+    int ar[a][a];
+    int cube[a][a];
 
     int *p_ar = &ar[0][0];
     int *p_cu = &cube[0][0];
@@ -66,11 +69,11 @@ void arsize(int a)
             printf("Enter value at [%d][%d]: ", i, j);
             scanf("%d", (p_ar + i * a + j));
 
-            *(p_cu + i * a + j) = (*(p_ar + i * a + j)) *(*(p_ar + i * a + j)) * (*(p_ar + i * a + j));
+            *(p_cu + i * a + j) = (*(p_ar + i * a + j)) * (*(p_ar + i * a + j)) * (*(p_ar + i * a + j));
         }
     }
 
-    printf("\nCube of all elements\n");
+    printf("\nCube of all elements:\n");
     for (int i = 0; i < a; i++)
     {
         for (int j = 0; j < a; j++)
@@ -86,9 +89,10 @@ int main()
     int b;
     printf("Enter array size: ");
     scanf("%d", &b);
-    arsize(b);
+    arsize(&b);
     return 0;
 }
+
 
 
 
