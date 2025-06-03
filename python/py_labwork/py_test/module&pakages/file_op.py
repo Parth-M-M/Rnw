@@ -1,65 +1,58 @@
-FILENAME = "parth.txt"
-
-def create():
+def create(filename):
     try:
-        with open(FILENAME, 'x') as file:
-            print(f"File '{FILENAME}' created successfully.")
+        with open(filename, 'x') as file:
+            print(f"File '{filename}' created successfully.")
     except FileExistsError:
-        print(f"File '{FILENAME}' already exists.")
+        print(f"File '{filename}' already exists.")
 
-def write(lines):
-    with open(FILENAME, 'w') as file:
-        file.write(lines + '\n')
-    print(f"Written to '{FILENAME}' successfully.")
+def write(filename, lines):
+    with open(filename, 'w') as file:
+        file.write(lines)
+    print(f"Written to '{filename}' successfully.")
 
-def read():
+def read(filename):
     try:
-        with open(FILENAME, 'r') as file:
+        with open(filename, 'r') as file:
             data = file.read()
-        print(f"Contents of '{FILENAME}':\n{data}")
+        print(f"Contents of '{filename}':\n{data}")
     except FileNotFoundError:
-        print(f"File '{FILENAME}' not found.")
+        print(f"File '{filename}' not found.")
 
-def append(lines):
+def append(filename, lines):
     try:
-        with open(FILENAME, 'a') as file:
-            file.write(lines + '\n')
-        print(f"Appended to '{FILENAME}' successfully.")
+        with open(filename, 'a') as file:
+            file.write(lines)
+        print(f"Appended to '{filename}' successfully.")
     except FileNotFoundError:
-        print(f"File '{FILENAME}' not found.")
-
+        print(f"File '{filename}' not found.")
 def file_op():
     while True:
-        print(f"""
-    File Operations on {FILENAME}:
-    1. Create the file
-    2. Write to the file
-    3. Read from the file
-    4. Append to the file
+        print("""
+    File Operations:
+    1. Create a new file
+    2. Write to a file
+    3. Read from a file
+    4. Append to a file
     5. Exit
     """)
-        try:
-            user_choice = int(input("Enter Your Choice: "))
-        except ValueError:
-            print("Please enter a valid integer choice.")
-            continue
-        except KeyboardInterrupt:
-            print("\nProgram interrupted by user. Exiting.")
-            break
-
+        user_choice = int(input("Enter Your Choice: "))
         match user_choice:
             case 1:
-                create()
+                name = input("Enter the name of the file you want to create: ")
+                create(name)
             case 2:
+                name = input("Enter the name of the file to write: ")
                 content = input("Enter content to write: ")
-                write(content)
+                write(name, content)
             case 3:
-                read()
+                name = input("Enter the name of the file to read: ")
+                read(name)
             case 4:
+                name = input("Enter the name of the file to append: ")
                 content = input("Enter content to append: ")
-                append(content)
+                append(name, content)
             case 5:
-                print("Returning to Main Menu...")                
+                print("Exiting the program.")
                 break
             case _:
                 print("Invalid choice! Please try again.")
