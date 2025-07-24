@@ -51,3 +51,17 @@ VALUES (9, 'Aarti Desai', 'Female', 50000, 'IT', '3 years');
 select * from employee;
 truncate TABLE employee;
 drop table employee ;
+
+use tea
+alter table customer 
+add Email varchar(255);
+
+alter table customer 
+drop column Email;
+
+alter table customer 
+change column Email email varchar(255);
+
+update customer set email = 'xyz@gmail.com'  where email is null ;
+SET SQL_SAFE_UPDATES = 0;
+select * from customer ;
