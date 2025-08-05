@@ -117,5 +117,26 @@ select * from sales limit 5 ;
 select * from sales order by price desc limit 3;
 select *  from sales where category = 'Fitness' and price > 300 ;
 select * from sales where category = 'Electronics' or category = 'Office Supplies';
-
-
+select * from sales where  category <> 'Fitness' ; 
+select * from sales where not price > 300 ;
+select * from sales order by price ASC ;
+select * from sales order by sale_date desc ;
+select * from sales order by category asc ,price desc ;
+select category , sum(price)*sum(quantity_sold) as revenue  from sales group by category ;
+select category , avg(price) as avg_price from sales group by category ;
+select category , avg(price) as avg_price from sales group by category  having avg(price) > 200 ;
+select product_name , category , price , quantity_sold,
+case 
+	when quantity_sold > 25 then 'this product is sold well'
+    when quantity_sold < 25 then 'this product is sold avg'
+	else 'this product has failed in the market'
+end as review 
+from sales ;
+select upper(product_name) from sales ;
+select lower(product_name) from sales ;
+select product_name , length(product_name) as product_length from sales ;
+SELECT SUBSTRING(product_name, 1, 4) AS first_four_chars FROM sales;
+SELECT REPLACE(category, 'Fitness', 'fitness cloths') AS new_full_name FROM sales;
+SELECT REVERSE(product_name) AS reversed_product_name FROM sales;
+SELECT TRIM(BOTH ' ' FROM product_name) AS trimmed_name FROM sales;
+SELECT * FROM sales WHERE product_name LIKE '%w%';
