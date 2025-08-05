@@ -475,8 +475,8 @@ SELECT
     orderid,
     totalamount,
     CASE 
-        WHEN totalamount > 1000 THEN totalamount * 0.10  -- 10% discount
-        WHEN totalamount > 500 THEN totalamount * 0.05  -- 5% discount
+        WHEN totalamount > 1000 THEN totalamount * 0.10  
+        WHEN totalamount > 500 THEN totalamount * 0.05  
         ELSE 0
     END AS discount
 FROM 
