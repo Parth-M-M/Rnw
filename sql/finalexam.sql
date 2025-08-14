@@ -127,6 +127,82 @@ UPDATE students
 SET phone_number = '1234567890'
 WHERE studentid = 1;
 
+alter table students 
+add  stu_status varchar(255) ;
 
 
+update students
+set stu_status = 'drop-out'
+where studentid = 1 ;
+
+
+update students
+set stu_status = 'active'
+where studentid = 2 ;
+
+
+update students
+set stu_status = 'pass-out'
+where studentid = 3 ;
+
+update students
+set stu_status = 'active'
+where studentid = 4 ;
+
+update students
+set stu_status = 'active'
+where studentid = 5 ;
+
+DELETE FROM enrollments
+WHERE studentid IN (
+    SELECT studentid
+    FROM students
+    WHERE stu_status = 'drop-out'
+);
+
+select * from students where departmentid = 1 ;
+
+SELECT s.studentid, 
+       s.studentname, 
+       g.courseid, 
+       g.marksobtained, 
+       g.grade
+FROM students s
+JOIN grades g 
+    ON s.studentid = g.studentid
+ORDER BY g.marksobtained DESC
+LIMIT 10;
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    COUNT(a.attendanceid) AS total_classes,
+    SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) AS present_classes,
+    ROUND(
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) / COUNT(a.attendanceid)) * 100, 
+        2
+    ) AS attendance_percentage
+FROM students s
+JOIN attendence a 
+    ON s.studentid = a.studentid
+GROUP BY s.studentid, s.studentname
+HAVING attendance_percentage < 75;
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    ROUND(
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) / COUNT(a.attendanceid)) * 100, 
+        2
+    ) AS attendance_percentage,
+    AVG(g.marksobtained) AS average_marks
+FROM students s
+JOIN attendence a 
+    ON s.studentid = a.studentid
+JOIN grades g 
+    ON s.studentid = g.studentid
+GROUP BY s.studentid, s.studentname
+HAVING attendance_percentage < 50
+   AND average_marks < 40;
+   
 
