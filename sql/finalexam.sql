@@ -206,3 +206,354 @@ HAVING attendance_percentage < 50
    AND average_marks < 40;
    
 
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    MAX(g.marksobtained) AS highest_marks,
+    ROUND(
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) / COUNT(a.attendanceid)) * 100, 
+        2
+    ) AS attendance_percentage
+FROM students s
+LEFT JOIN grades g 
+    ON s.studentid = g.studentid
+LEFT JOIN attendence a 
+    ON s.studentid = a.studentid
+GROUP BY s.studentid, s.studentname
+HAVING highest_marks > 90
+   OR attendance_percentage = 100;
+
+
+SELECT 
+    f.facultyid,
+    f.facultyname,
+    f.email
+FROM faculty f
+LEFT JOIN course c 
+    ON f.facultyid = c.facultyid
+WHERE c.courseid IS NULL;
+
+SELECT studentid, studentname, dateofbirth, gender, email, phone_number, address, admission_date, departmentid, stu_status
+FROM students
+ORDER BY studentname ASC;
+
+SELECT 
+    d.departmentid,
+    d.departmentname,
+    COUNT(s.studentid) AS total_students
+FROM departments d
+LEFT JOIN students s 
+    ON d.departmentid = s.departmentid
+GROUP BY d.departmentid, d.departmentname
+ORDER BY d.departmentname;
+
+
+SELECT 
+    c.courseid,
+    c.course_name,
+    ROUND(AVG(g.marksobtained), 2) AS average_marks
+FROM course c
+JOIN grades g 
+    ON c.courseid = g.courseid
+GROUP BY c.courseid, c.course_name
+ORDER BY c.course_name;
+
+
+SELECT 
+    ROUND(AVG(attendance_percentage), 2) AS avg_attendance_percentage
+FROM (
+    SELECT 
+        s.studentid,
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) 
+         / COUNT(a.attendanceid)) * 100 AS attendance_percentage
+    FROM students s
+    JOIN attendence a 
+        ON s.studentid = a.studentid
+    GROUP BY s.studentid
+) AS student_attendance;
+
+
+SELECT 
+    c.courseid,
+    c.course_name,
+    MAX(g.marksobtained) AS highest_marks,
+    MIN(g.marksobtained) AS lowest_marks
+FROM course c
+JOIN grades g 
+    ON c.courseid = g.courseid
+GROUP BY c.courseid, c.course_name
+ORDER BY c.course_name;
+
+
+SELECT 
+    d.departmentid,
+    d.departmentname,
+    COUNT(s.studentid) AS total_students
+FROM departments d
+LEFT JOIN students s 
+    ON d.departmentid = s.departmentid
+GROUP BY d.departmentid, d.departmentname
+ORDER BY d.departmentname;
+
+
+SELECT 
+    ROUND(AVG(attendance_percentage), 2) AS avg_attendance_percentage
+FROM (
+    SELECT 
+        s.studentid,
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) 
+         / COUNT(a.attendanceid)) * 100 AS attendance_percentage
+    FROM students s
+    JOIN attendence a 
+        ON s.studentid = a.studentid
+    GROUP BY s.studentid
+) AS student_attendance;
+
+SELECT 
+    c.courseid,
+    c.course_name,
+    MAX(g.marksobtained) AS highest_marks,
+    MIN(g.marksobtained) AS lowest_marks
+FROM course c
+JOIN grades g 
+    ON c.courseid = g.courseid
+GROUP BY c.courseid, c.course_name
+ORDER BY c.course_name;
+
+SELECT 
+    d.departmentid,
+    d.departmentname,
+    COUNT(s.studentid) AS total_students
+FROM departments d
+LEFT JOIN students s 
+    ON d.departmentid = s.departmentid
+GROUP BY d.departmentid, d.departmentname
+ORDER BY d.departmentname;
+
+ALTER TABLE enrollments
+ADD CONSTRAINT unique_student_course 
+UNIQUE (studentid, courseid);
+
+SELECT 
+    f.facultyid,
+    f.facultyname,
+    c.courseid,
+    c.course_name
+FROM faculty f
+JOIN course c 
+    ON f.facultyid = c.facultyid
+ORDER BY f.facultyname, c.course_name;
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    s.gender,
+    s.email,
+    d.departmentname
+FROM students s
+INNER JOIN departments d 
+    ON s.departmentid = d.departmentid
+ORDER BY s.studentname;
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    s.email
+FROM students s
+LEFT JOIN enrollments e 
+    ON s.studentid = e.studentid
+WHERE e.enrollmentid IS NULL;
+
+
+
+SELECT 
+    c.courseid,
+    c.course_name
+FROM faculty f
+RIGHT JOIN course c 
+    ON f.facultyid = c.facultyid
+WHERE f.facultyid IS NULL;
+
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    g.marksobtained,
+    g.grade
+FROM students s
+LEFT JOIN grades g 
+    ON s.studentid = g.studentid
+WHERE g.gradeid IS NULL
+
+UNION
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    g.marksobtained,
+    g.grade
+FROM students s
+RIGHT JOIN grades g 
+    ON s.studentid = g.studentid
+WHERE s.studentid IS NULL;
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    g.marksobtained
+FROM students s
+JOIN grades g 
+    ON s.studentid = g.studentid
+WHERE g.marksobtained > (
+    SELECT AVG(marksobtained) FROM grades
+)
+ORDER BY g.marksobtained DESC;
+
+
+ALTER TABLE faculty ADD experience_years INT;
+
+
+SELECT 
+    c.courseid,
+    c.course_name,
+    f.facultyname,
+    f.experience_years
+FROM course c
+JOIN faculty f 
+    ON c.facultyid = f.facultyid
+WHERE f.experience_years >= 5;
+
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    COUNT(a.attendanceid) AS missed_classes
+FROM students s
+JOIN attendence a 
+    ON s.studentid = a.studentid
+WHERE a.attendancestatus = 'absent'
+GROUP BY s.studentid, s.studentname
+HAVING missed_classes > 10;
+
+
+SELECT 
+    MONTH(a.attendance_date) AS attendance_month,
+    COUNT(a.attendanceid) AS total_records
+FROM attendence a
+GROUP BY attendance_month
+ORDER BY attendance_month;
+
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    TIMESTAMPDIFF(YEAR, s.admission_date, CURDATE()) AS years_since_admission
+FROM students s
+ORDER BY years_since_admission DESC;
+
+
+SELECT 
+    a.attendanceid,
+    s.studentname,
+    DATE_FORMAT(a.attendance_date, '%d-%m-%Y') AS formatted_date,
+    a.attendancestatus
+FROM attendence a
+JOIN students s 
+    ON a.studentid = s.studentid
+ORDER BY a.attendance_date;
+
+UPDATE faculty
+SET facultyname = UPPER(facultyname);
+
+
+UPDATE students
+SET studentname = TRIM(studentname);
+
+
+UPDATE students
+SET email = 'Email Not Provided'
+WHERE email IS NULL;
+
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    SUM(g.marksobtained) AS total_marks,
+    RANK() OVER (ORDER BY SUM(g.marksobtained) DESC) AS rank_position
+FROM students s
+JOIN grades g 
+    ON s.studentid = g.studentid
+GROUP BY s.studentid, s.studentname
+ORDER BY total_marks DESC;
+
+
+SELECT 
+    c.courseid,
+    c.course_name,
+    ROUND(
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) 
+        / COUNT(a.attendanceid)) * 100, 2
+    ) AS attendance_percentage
+FROM course c
+JOIN attendence a 
+    ON c.courseid = a.courseid
+GROUP BY c.courseid, c.course_name
+ORDER BY attendance_percentage DESC;
+
+
+SET @running_total := 0;
+
+SET @running_total := 0;
+
+SELECT 
+    monthly_data.year_months,
+    monthly_data.monthly_enrollments,
+    (@running_total := @running_total + monthly_data.monthly_enrollments) AS running_total
+FROM (
+    SELECT 
+        DATE_FORMAT(enrollmentdate, '%Y-%m') AS year_months,
+        COUNT(enrollmentid) AS monthly_enrollments
+    FROM enrollments
+    GROUP BY DATE_FORMAT(enrollmentdate, '%Y-%m')
+    ORDER BY DATE_FORMAT(enrollmentdate, '%Y-%m')
+) AS monthly_data;
+
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    g.marksobtained,
+    CASE
+        WHEN g.marksobtained > 90 THEN 'Excellent'
+        WHEN g.marksobtained BETWEEN 75 AND 90 THEN 'Good'
+        ELSE 'Needs Improvement'
+    END AS performance_level
+FROM students s
+JOIN grades g 
+    ON s.studentid = g.studentid
+ORDER BY g.marksobtained DESC;
+
+
+SELECT 
+    s.studentid,
+    s.studentname,
+    ROUND(
+        (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) 
+         / COUNT(a.attendanceid)) * 100, 2
+    ) AS attendance_percentage,
+    CASE
+        WHEN (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) 
+              / COUNT(a.attendanceid)) * 100 > 80 THEN 'Regular'
+        WHEN (SUM(CASE WHEN a.attendancestatus = 'present' THEN 1 ELSE 0 END) 
+              / COUNT(a.attendanceid)) * 100 BETWEEN 50 AND 80 THEN 'Irregular'
+        ELSE 'Poor Attendance'
+    END AS attendance_category
+FROM students s
+JOIN attendence a 
+    ON s.studentid = a.studentid
+GROUP BY s.studentid, s.studentname
+ORDER BY attendance_percentage DESC;
+
+
+
