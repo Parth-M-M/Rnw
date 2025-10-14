@@ -1,0 +1,9 @@
+Jupiter lab for ml 
+data grip for data processing and management
+PyCharm - professional for deep python development
+data spell for Deep data research
+google Collab is for Heavy Hardware Task
+
+
+
+
