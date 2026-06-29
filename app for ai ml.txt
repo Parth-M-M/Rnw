@@ -5,5 +5,10 @@ data spell for Deep data research
 google Collab is for Heavy Hardware Task
 
 
+ai agent flow 
+
+langflow 
+
+tavily web search tool 
 
 
